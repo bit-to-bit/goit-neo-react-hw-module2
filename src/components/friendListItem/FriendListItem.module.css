@@ -1,0 +1,30 @@
+.friend {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #000000;
+    height: 216px;
+    width: 132px;
+    align-items: center;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.friend img {
+    height: 96px;
+    width: auto;
+    margin-top: 16px;
+}
+
+.friend-name {
+    font-size: 30px;
+    margin-top: 14px;
+}
+
+.friend-state {
+    font-size: 18px;
+    color: #FF0807;
+}
+
+.is-online {
+    color: #008000;
+}

@@ -1,0 +1,35 @@
+.history {
+    min-width: 740px;
+    border-collapse: collapse;
+}
+
+.history th,
+.history td {
+    border: 1px solid #050505;
+    text-align: center;
+    width: 33.33%;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.history td:first-child {
+    padding-left: 74px;
+    text-align: left;
+}
+
+.history td:first-child::first-letter {
+    text-transform: capitalize;
+}
+
+.history th {
+    background-color: #2A2A2A;
+    color: #fff;
+}
+
+.history tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.history tr:nth-child(even) {
+    background-color: #D3D3D3;
+}
