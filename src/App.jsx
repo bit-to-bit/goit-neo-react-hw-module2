@@ -1,34 +1,50 @@
-import userData from './data/userData.json';
-import friendsData from './data/friendsData.json';
-import transactionsData from './data/transactionsData.json';
-import TransactionHistory from './components/transactionHistory/TransactionHistory';
-import Profile from './components/profile/Profile';
-import FriendList from './components/friendList/FriendList';
+import Description from './components/description/Description';
+import Feedback from './components/feedback/Feedback';
+import Options from './components/options/Options';
+import { useState, useEffect } from 'react';
+import { feedbackInitialState, allOptions } from './constants';
 
 const App = () => {
-  const user = userData;
-  const friends = friendsData.friends;
-  const transactions = transactionsData.transactions;
+  const getFeedbackInitialState = () => {
+    const localData = localStorage.getItem('feedback');
+    if (localData) {
+      return JSON.parse(localData);
+    }
+    return feedbackInitialState;
+  };
+
+  const [feedback, setFeedback] = useState(getFeedbackInitialState);
+
+  useEffect(() => {
+    localStorage.setItem('feedback', JSON.stringify(feedback));
+  }, [feedback]);
+
+  const handleClickFeedbackBtn = optionName => {
+    setFeedback({
+      ...feedback,
+      [optionName]: feedback[optionName] + 1,
+    });
+  };
+
+  const handleClickResetBtn = () => {
+    setFeedback(feedbackInitialState);
+  };
+
+  const totalFeedbacks = allOptions.reduce(
+    (acc, option) => acc + feedback[option],
+    0
+  );
   return (
     <>
-      <section>
-        <h2>Profile</h2>
-        <Profile
-          name={user.username}
-          tag={user.tag}
-          location={user.location}
-          image={user.avatar}
-          stats={user.stats}
-        />
-      </section>
-      <section>
-        <h2>FriendList</h2>
-        <FriendList friends={friends} />
-      </section>
-      <section>
-        <h2>TransactionHistory</h2>
-        <TransactionHistory transactions={transactions}></TransactionHistory>
-      </section>
+      <Description />
+
+      <Options
+        handleClickFeedbackBtn={handleClickFeedbackBtn}
+        handleClickResetBtn={handleClickResetBtn}
+        totalFeedbacks={totalFeedbacks}
+      />
+
+      <Feedback feedback={feedback} totalFeedbacks={totalFeedbacks} />
     </>
   );
 };
